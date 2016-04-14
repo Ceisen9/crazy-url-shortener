@@ -49,7 +49,6 @@ app.get("/", function(req, res){
 
 app.get("/crazyUrls", function(req,res){
   CrazyUrl.find({}).then(function(crazyUrls){
-    console.log(crazyUrls);
     res.render("urls-index", {
       crazyUrls: crazyUrls
     });

@@ -8,6 +8,6 @@ var CrazyUrlSchema = new mongoose.Schema(
 );
 
 mongoose.model("CrazyUrl", CrazyUrlSchema);
-mongoose.connect("mongodb://localhost/crazy-url-shortener");
+// mongoose.connect("mongodb://localhost/crazy-url-shortener");
 
 module.exports = mongoose;
