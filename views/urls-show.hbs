@@ -1,6 +1,6 @@
 {{#if crazyUrl}}
 <h2>And your New Url is...</h2>
-<h3>{{crazyUrl.oldUrl}} has been converted to {{crazyUrl.newUrl}}</h3>
+<a href="http:// + {{crazyUrl.oldUrl}}">{{crazyUrl.oldUrl}} has been converted to {{crazyUrl.newUrl}}</a>
 
 <form action="/crazyUrls/{{crazyUrl.oldUrl}}" method="post">
   <input type="text" oldUrl="crazyUrl[oldUrl]" placeholder="Enter the URL to Shorten" value = "{{crazyUrl.oldUrl}}"/>
