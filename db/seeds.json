@@ -1,0 +1,14 @@
+[
+  {
+    "oldUrl": "google.com",
+    "newUrl": "crazy.com"
+  },
+  {
+    "oldUrl": "yahoo.com",
+    "newUrl": "zany.com"
+  },
+  {
+    "oldUrl": "facebook.com",
+    "newUrl": "wacky.com"
+  }
+]

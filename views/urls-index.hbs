@@ -1,0 +1,6 @@
+<h2>Here's a list of some CRAZY Urls</h2>
+{{#each crazyUrls as |crazyUrl index|}}
+<h3>
+<a href="/crazyUrls/{{crazyUrl.oldUrl}}">{{crazyUrl.oldUrl}} has been converted to {{crazyUrl.newUrl}}</a>
+</h3>
+{{/each}}

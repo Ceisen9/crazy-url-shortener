@@ -1,0 +1,16 @@
+{{#if crazyUrl}}
+<h2>And your New Url is...</h2>
+<h3>{{crazyUrl.oldUrl}} has been converted to {{crazyUrl.newUrl}}</h3>
+
+<form action="/crazyUrls/{{crazyUrl.oldUrl}}" method="post">
+  <input type="text" oldUrl="crazyUrl[oldUrl]" placeholder="Enter the URL to Shorten" value = "{{crazyUrl.oldUrl}}"/>
+  <button type="submit">Edit</button>
+</form>
+
+<form action="/crazyUrls/{{crazyUrl.oldUrl}}/delete" method="post">
+  <button type="submit">Delete</button>
+</form>
+
+{{else}}
+<h2>That Crazy Url couldn't be found!</h2>
+{{/if}}
