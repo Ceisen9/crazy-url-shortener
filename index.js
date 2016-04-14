@@ -19,7 +19,8 @@ app.engine(".hbs", hbs({
 }));
 
 app.use("/assets", express.static("public"));
-app.use(parser.urlencoded({extended: true}));
+app.use(parser.json({extended: true}));
+// app.use(parser.urlencoded({extended: true}));
 
 function getRandomItem(some_array){
   var randomIndex = Math.floor((Math.random() * some_array.length));
@@ -43,45 +44,53 @@ function generateRandomUrl(){
   return randomSyn + randomLetter1 + randomNumber1 + randomLetter2 + randomNumber2 + randomLetter3 + randomNumber3
 };
 
-app.get("/", function(req, res){
-  res.render("app-welcome");
-});
-
-app.get("/crazyUrls", function(req,res){
-  CrazyUrl.find({}).then(function(crazyUrls){
-    console.log(crazyUrls);
-    res.render("urls-index", {
-      crazyUrls: crazyUrls
-    });
+app.get("/api/crazyUrls", function(req,res){
+  // CrazyUrl.find({}).then(function(crazyUrls){
+  CrazyUrl.find({}).lean().exec().then(function(crazyUrls){
+    res.json(crazyUrls);
+    // console.log(crazyUrls);
+    // res.render("urls-index", {
+    //   crazyUrls: crazyUrls
+    // });
   });
 });
 
-app.get("/crazyUrls/:oldUrl", function(req, res){
+app.get("/api/crazyUrls/:oldUrl", function(req, res){
   CrazyUrl.findOne({oldUrl: req.params.oldUrl}).then(function(crazyUrl){
-    res.render("urls-show", {
-      crazyUrl: crazyUrl
-    });
+    res.json(crazyUrl)
+    // res.render("urls-show", {
+    //   crazyUrl: crazyUrl
+    // });
   });
 });
 
-app.post("/crazyUrls", function(req, res){
+app.post("/api/crazyUrls", function(req, res){
   CrazyUrl.create(req.body.crazyUrl).then(function(crazyUrl){
     crazyUrl.newUrl = generateRandomUrl();
     crazyUrl.save();
-    res.redirect("/crazyUrls/" + crazyUrl.oldUrl)
+    res.json(crazyUrl);
+    // res.redirect("/crazyUrls/" + crazyUrl.oldUrl)
   });
 });
 
-app.post("/crazyUrls/:oldUrl/delete", function(req, res){
+// app.post("/crazyUrls/:oldUrl/delete", function(req, res){
+app.delete("/api/crazyUrls/:oldUrl/delete", function(req, res){
   CrazyUrl.findOneAndRemove({oldUrl: req.params.oldUrl}).then(function(){
-    res.redirect("/crazyUrls")
+    res.json({success: true});
+    // res.redirect("/crazyUrls")
   });
 });
 
-app.post("/crazyUrls/:oldUrl", function(req, res){
+// app.post("/crazyUrls/:oldUrl", function(req, res){
+app.put("/api/crazyUrls/:oldUrl", function(req, res){
   CrazyUrl.findOneAndUpdate({oldUrl: req.params.oldUrl}, req.body.crazyUrl, function(crazyUrl){
-    res.redirect("/crazyUrls/" + crazyUrl.oldUrl)
+    res.json(crazyUrl);
+    // res.redirect("/crazyUrls/" + crazyUrl.oldUrl)
   });
+});
+
+app.get("/*", function(req, res){
+  res.render("url");
 });
 
 
