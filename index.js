@@ -40,12 +40,13 @@ function generateRandomUrl(){
   var randomNumber1 = getRandomNumber();
   var randomNumber2 = getRandomNumber();
   var randomNumber3 = getRandomNumber();
-  return randomSyn + randomLetter1 + randomNumber1 + randomLetter2 + randomNumber2 + randomLetter3 + randomNumber3
+  return randomSyn + randomNumber1 + randomLetter1 + randomNumber2 + randomLetter2 + randomNumber3 + randomLetter3
 };
 
 app.get("/", function(req, res){
   res.render("app-welcome");
 });
+
 
 app.get("/crazyUrls", function(req,res){
   CrazyUrl.find({}).then(function(crazyUrls){
@@ -62,6 +63,13 @@ app.get("/crazyUrls/:oldUrl", function(req, res){
     });
   });
 });
+
+app.get("/~/:newUrl", function(req, res){
+  CrazyUrl.findOne({newUrl: req.params.newUrl}).then(function(crazyUrl){
+    res.redirect("http://" + crazyUrl.oldUrl)
+  });
+});
+
 
 app.post("/crazyUrls", function(req, res){
   CrazyUrl.create(req.body.crazyUrl).then(function(crazyUrl){

@@ -2,7 +2,9 @@
 {{#each crazyUrls as |crazyUrl index|}}
 <h3>
 <a href="/crazyUrls/{{crazyUrl.oldUrl}}">View</a>
-<a href="http:// + {{crazyUrl.oldUrl}}">{{crazyUrl.oldUrl}} has been converted to {{crazyUrl.newUrl}}</a>
+<a href="http://{{crazyUrl.oldUrl}}">{{crazyUrl.oldUrl}}</a>
+has been converted to
+<a href="http://localhost:3001/~/{{crazyUrl.newUrl}}">http://localhost:3001/~/{{crazyUrl.newUrl}}</a>
 </h3>
 {{/each}}
 
